@@ -7,15 +7,11 @@ namespace App\Handler;
 use App\Document\Apod;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\Persistence\ObjectRepository;
-use Laminas\Diactoros\Response\JsonResponse;
-use MongoDB\Driver\Exception\Exception;
-use MongoDB\Driver\Exception\InvalidArgumentException;
-use MongoDB\Driver\Exception\RuntimeException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Redis;
-use function time;
+use PsrHealth\Health;
+use StructuredHandlers\JsonResponse;
 
 class HealthHandler implements RequestHandlerInterface
 {
@@ -29,19 +25,20 @@ class HealthHandler implements RequestHandlerInterface
      */
     public $repository;
 
+    /**
+     * @var Health
+     */
+    public $health;
 
-    public function __construct(DocumentManager $odm)
+    public function __construct(DocumentManager $odm, Health $health)
     {
         $this->odm = $odm;
+        $this->health = $health;
         $this->repository = $this->odm->getRepository(Apod::class);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new JsonResponse([
-            'time' => time(),
-            'php' => phpversion(),
-            'mongo' => $this->repository->findAll()
-        ]);
+        return new JsonResponse($this->health->getHealthStatus());
     }
 }

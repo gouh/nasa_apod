@@ -34,6 +34,8 @@ $aggregator = new ConfigAggregator([
         : function (): array {
             return [];
         },
+
+    \PsrHealth\ConfigProvider::class,
     App\ConfigProvider::class,
     // Doctrine ODM configuration from ArrayProvider
     new ArrayProvider([
