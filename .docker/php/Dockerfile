@@ -39,4 +39,8 @@ RUN mkdir -p /var/cache/php-fpm/DoctrineMongoODMModule/Proxy \
     && mkdir -p /var/cache/php-fpm/DoctrineMongoODMModule/Hydrator \
     && mkdir -p /var/cache/php-fpm/DoctrineMongoODMModule/PersistentCollection
 
+RUN chmod 777 /var/cache/php-fpm/DoctrineMongoODMModule/Proxy \
+    /var/cache/php-fpm/DoctrineMongoODMModule/Hydrator \
+    /var/cache/php-fpm/DoctrineMongoODMModule/PersistentCollection
+
 WORKDIR /var/www
