@@ -6,3 +6,4 @@
 /vendor/
 /.docker/.env
 /.idea
+composer.lock

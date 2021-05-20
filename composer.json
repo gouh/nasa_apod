@@ -43,6 +43,8 @@
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/doctrine-mongo-odm-module": "^3.0",
         "filp/whoops": "^2.12",
+        "gouh/laminas-handlers": "^1.0",
+        "gouh/psr-health": "^1.0",
         "laminas/laminas-component-installer": "^2.1.2",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-diactoros": "^2.3.0",
