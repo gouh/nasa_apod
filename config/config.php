@@ -35,7 +35,10 @@ $aggregator = new ConfigAggregator([
             return [];
         },
     App\ConfigProvider::class,
-    DoctrineOdm\ConfigProvider::class,
+    // Doctrine ODM configuration from ArrayProvider
+    new ArrayProvider([
+        'dependencies' => (new \DoctrineMongoODMModule\Module())->getServiceConfig()
+    ]),
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):
     //   - `global.php`

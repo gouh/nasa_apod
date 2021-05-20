@@ -65,8 +65,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/src/",
-            "DoctrineOdm\\": "src/DoctrineOdm/src/"
+            "App\\": "src/App/src/"
         }
     },
     "autoload-dev": {
