@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\DAO;
-
 
 use App\Document\Apod;
 use Doctrine\ODM\MongoDB\DocumentManager;

@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Service;
-
 
 use App\DAO\ApodDao;
 use App\Document\Apod;
@@ -35,6 +35,7 @@ class ApodService
         $apod->setDate($apodDto->date);
         $apod->setExplanation($apodDto->date);
         $apod->setHdurl($apodDto->hdurl);
+        $apod->setHdurl($apodDto->explanation);
         $apod->setMediaType($apodDto->mediaType);
         $apod->setServiceVersion($apodDto->serviceVersion);
         $apod->setTitle($apodDto->title);
