@@ -10,29 +10,47 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Apod
 {
-    /** @ODM\Id */
+    /**
+     * @ODM\Id
+     */
     private $id;
 
     /** @ODM\Field(type="string") */
-    public $date;
+    private $date;
 
     /** @ODM\Field(type="string") */
-    public $explanation;
+    private $explanation;
 
     /** @ODM\Field(type="string") */
-    public $hdurl;
+    private $hdurl;
 
     /** @ODM\Field(type="string", name="media_type") */
-    public $mediaType;
+    private $mediaType;
 
     /** @ODM\Field(type="string", name="service_version") */
-    public $serviceVersion;
+    private $serviceVersion;
 
     /** @ODM\Field(type="string") */
-    public $title;
+    private $title;
 
     /** @ODM\Field(type="string") */
-    public $url;
+    private $url;
+
+    /** @ODM\Field(type="boolean") */
+    private $status;
+
+    public function __construct()
+    {
+        $this->status = true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -144,5 +162,21 @@ class Apod
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setStatus(bool $status): void
+    {
+        $this->status = $status;
     }
 }
