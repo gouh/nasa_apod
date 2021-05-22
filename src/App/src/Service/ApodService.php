@@ -45,10 +45,15 @@ class ApodService
 
     /**
      * @return array
+     * @throws Exception
      */
     public function getAll(): array
     {
-        return ApodDto::arrayFromDb($this->apodDao->getAll());
+        try {
+            return ApodDto::arrayFromDb($this->apodDao->getAll());
+        }catch (Exception $e) {
+            throw new Exception($e->getMessage(), StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -97,6 +102,9 @@ class ApodService
 
         try {
             $apod = $this->apodDao->update($apodId, $apod);
+            if ($apod == NULL) {
+                throw new Exception(self::APOD_NOT_FOUND, StatusCodeInterface::STATUS_NOT_FOUND);
+            }
         } catch (MongoDBException $e) {
             throw new Exception($e->getMessage(), StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
         }
@@ -113,6 +121,9 @@ class ApodService
     {
         try {
             $apod = $this->apodDao->delete($apodId);
+            if ($apod == NULL) {
+                throw new Exception(self::APOD_NOT_FOUND, StatusCodeInterface::STATUS_NOT_FOUND);
+            }
         } catch (MongoDBException $e) {
             throw new Exception($e->getMessage(), StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
         }
