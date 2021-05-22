@@ -49,4 +49,23 @@ class ApodDto extends DataTransferObject
         }
         return $apodDtos;
     }
+
+    /**
+     * @param array $apod
+     * @return static
+     */
+    public static function fromArray(array $apod): self
+    {
+        return new self([
+            'id' => $apod['id'],
+            'date' => $apod['date'],
+            'explanation' => $apod['explanation'],
+            'hdurl' => $apod['hdurl'],
+            'mediaType' => $apod['media_type'],
+            'serviceVersion' => $apod['service_version'],
+            'title' => $apod['title'],
+            'url' => $apod['url'],
+            'status' => $apod['status']
+        ]);
+    }
 }
