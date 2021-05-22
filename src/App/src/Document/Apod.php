@@ -167,7 +167,7 @@ class Apod
     /**
      * @return bool
      */
-    public function isStatus(): bool
+    public function isStatus(): ?bool
     {
         return $this->status;
     }
