@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Psr\Container\ContainerInterface;
@@ -17,9 +19,18 @@ class RoutesDelegator
         $app = $callback();
 
         /**
-         * Extras
+         * Health
          */
-        $app->route('/', Handler\HealthHandler::class, ['GET'], 'health');
+        $app->route('/v1/health', Handler\HealthHandler::class, ['GET'], 'apod.health');
+
+        /**
+         * get
+         */
+        $app->route('/v1/apod', Handler\ApodHandler::class, ['GET'], 'apod.getAllApod');
+        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['GET'], 'apod.getApod');
+        $app->route('/v1/apod', Handler\ApodHandler::class, ['POST'], 'apod.newApod');
+        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['PUT'], 'apod.updateApod');
+        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['DELETE'], 'apod.deleteApod');
 
         return $app;
     }

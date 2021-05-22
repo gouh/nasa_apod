@@ -23,7 +23,8 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates' => $this->getTemplates()
+            'templates' => $this->getTemplates(),
+            'input_filters' => $this->getInputFilters()
         ];
     }
 
@@ -39,8 +40,20 @@ class ConfigProvider
                 ]
             ],
             'factories' => [
-                Handler\HealthHandler::class => Factory\HealthHandlerFactory::class
+                Handler\HealthHandler::class => Factory\HealthHandlerFactory::class,
+                Handler\ApodHandler::class => Factory\ApodHanlderFactory::class,
+                DAO\ApodDao::class => Factory\ApodDaoFactory::class,
+                Service\ApodService::class => Factory\ApodServiceFactory::class
             ]
+        ];
+    }
+
+    public function getInputFilters() : array
+    {
+        return [
+            'invokables' => [
+                InputFilter\ApodInputFilter::class => InputFilter\ApodInputFilter::class
+            ],
         ];
     }
 
