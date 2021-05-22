@@ -36,10 +36,17 @@ class ApodDao
      * Finds all APODs.
      *
      * @return array
+     * @throws MongoDBException
      */
     public function getAll(): array
     {
-        return $this->repository->findAll();
+        return $this->documentManager
+            ->createQueryBuilder(Apod::class)
+            ->find()
+            ->field('status')->equals(true)
+            ->getQuery()
+            ->execute()
+            ->toArray();
     }
 
     /**
@@ -50,7 +57,13 @@ class ApodDao
      */
     public function get(string $apodId): ?object
     {
-        return $this->repository->find($apodId);
+        return $this->documentManager
+            ->createQueryBuilder(Apod::class)
+            ->find()
+            ->field('id')->equals($apodId)
+            ->field('status')->equals(true)
+            ->getQuery()
+            ->getSingleResult();
     }
 
     /**
@@ -78,6 +91,7 @@ class ApodDao
             ->findAndUpdate()
             ->returnNew()
             ->field('id')->equals($apodId)
+            ->field('status')->equals(true)
             ->field('date')->set($apod->getDate())
             ->field('explanation')->set($apod->getExplanation())
             ->field('hdurl')->set($apod->getHdurl())
@@ -85,7 +99,6 @@ class ApodDao
             ->field('serviceVersion')->set($apod->getServiceVersion())
             ->field('title')->set($apod->getTitle())
             ->field('url')->set($apod->getUrl())
-            ->field('status')->set(true)
             ->getQuery()
             ->execute();
     }
@@ -102,6 +115,7 @@ class ApodDao
             ->findAndUpdate()
             ->returnNew()
             ->field('id')->equals($apodId)
+            ->field('status')->equals(true)
             ->field('status')->set(false)
             ->getQuery()
             ->execute();
