@@ -33,7 +33,7 @@ class ApodDao
     }
 
     /**
-     * Finds all APODs.
+     * Find all APODs.
      *
      * @param int $page
      * @param int $itemsPerPage
@@ -72,7 +72,7 @@ class ApodDao
     }
 
     /**
-     * Finds an APOD by its primary key / identifier.
+     * Find APOD by primary key / identifier.
      *
      * @param string $apodId
      * @return object|null
@@ -89,6 +89,8 @@ class ApodDao
     }
 
     /**
+     * Save apod
+     *
      * @param Apod $apod
      * @return Apod
      * @throws InvalidArgumentException|MongoDBException
@@ -101,6 +103,8 @@ class ApodDao
     }
 
     /**
+     * Update apod
+     *
      * @param string $apodId
      * @param Apod $apod
      * @return array|Iterator|int|DeleteResult|InsertOneResult|UpdateResult|object|null
@@ -126,6 +130,8 @@ class ApodDao
     }
 
     /**
+     * Logic delete apod
+     *
      * @param string $apodId
      * @return array|Iterator|int|DeleteResult|InsertOneResult|UpdateResult|object|null
      * @throws MongoDBException
