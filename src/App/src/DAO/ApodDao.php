@@ -35,18 +35,40 @@ class ApodDao
     /**
      * Finds all APODs.
      *
+     * @param int $page
+     * @param int $itemsPerPage
      * @return array
      * @throws MongoDBException
      */
-    public function getAll(): array
+    public function getAll(int $page, int $itemsPerPage): array
     {
-        return $this->documentManager
+        $skipElements = ($page - 1) * $itemsPerPage;
+        $apods = $this->documentManager
             ->createQueryBuilder(Apod::class)
             ->find()
             ->field('status')->equals(true)
+            ->limit($itemsPerPage)
+            ->skip($skipElements)
             ->getQuery()
             ->execute()
             ->toArray();
+
+        $totalItemsCollection = $this->documentManager
+            ->createQueryBuilder(Apod::class)
+            ->field('status')->equals(true)
+            ->count()
+            ->getQuery()
+            ->execute();
+
+        $totalPages = ceil($totalItemsCollection / $itemsPerPage);
+
+        return [
+            'items' => $apods,
+            'current_page' => $page,
+            'items_per_page' => $itemsPerPage,
+            'total_items' => count($apods),
+            'total_pages' => (int) $totalPages
+        ];
     }
 
     /**

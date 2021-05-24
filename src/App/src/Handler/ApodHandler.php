@@ -50,7 +50,20 @@ class ApodHandler implements RequestHandlerInterface
                 $apod = $this->apodService->get($apodId);
                 return new JsonResponse($apod->toArray(), 'Apod');
             }
-            return new JsonResponse($this->apodService->getAll(), 'List of APOD\'s');
+
+            $page = $request->getAttribute('page');
+            $page = $page ? (int) $page : 1;
+            $itemsPerPage = $request->getAttribute('itemsPerPage');
+            $itemsPerPage = $itemsPerPage ? (int) $itemsPerPage : 10;
+
+            $apods = $this->apodService->getAll($page, $itemsPerPage);
+            return (new JsonResponse($apods['items'], 'List of APOD\'s'))
+                ->buildWithPagination(
+                    $apods['current_page'],
+                    $apods['items_per_page'],
+                    $apods['total_items'],
+                    $apods['total_pages']
+                );
         } catch (Exception $e) {
             return new JsonResponse([], $e->getMessage(), $e->getCode());
         }

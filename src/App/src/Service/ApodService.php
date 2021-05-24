@@ -44,13 +44,17 @@ class ApodService
     }
 
     /**
+     * @param int $page
+     * @param int $itemsPerPage
      * @return array
      * @throws Exception
      */
-    public function getAll(): array
+    public function getAll(int $page, int $itemsPerPage): array
     {
         try {
-            return ApodDto::arrayFromDb($this->apodDao->getAll());
+            $apods = $this->apodDao->getAll($page, $itemsPerPage);
+            $apods['items'] = ApodDto::arrayFromDb($apods['items']);
+            return $apods;
         }catch (Exception $e) {
             throw new Exception($e->getMessage(), StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
         }
