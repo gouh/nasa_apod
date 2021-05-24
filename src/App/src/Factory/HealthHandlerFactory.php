@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Handler\HealthHandler;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use PsrHealth\Health;
@@ -19,7 +18,6 @@ class HealthHandlerFactory
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         $health = $container->get(Health::class);
-        $documentManager = $container->get(DocumentManager::class);
-        return new HealthHandler($documentManager, $health);
+        return new HealthHandler($health);
     }
 }
