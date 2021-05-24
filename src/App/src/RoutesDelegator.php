@@ -8,8 +8,6 @@ use Psr\Container\ContainerInterface;
 use Mezzio\Application;
 
 /**
- * Configuración para el delegator de rutas
- *
  * @see https://docs.mezzio.dev/mezzio/v3/features/container/delegator-factories/
  */
 class RoutesDelegator
@@ -18,19 +16,27 @@ class RoutesDelegator
     {
         $app = $callback();
 
-        /**
-         * Health
-         */
-        $app->route('/v1/health', Handler\HealthHandler::class, ['GET'], 'apod.health');
+        // Health page
+        $app->get('/v1/health', Handler\HealthHandler::class, 'apod.health');
 
-        /**
-         * get
-         */
-        $app->route('/v1/apod', Handler\ApodHandler::class, ['GET'], 'apod.getAllApod');
-        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['GET'], 'apod.getApod');
-        $app->route('/v1/apod', Handler\ApodHandler::class, ['POST'], 'apod.newApod');
-        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['PUT'], 'apod.updateApod');
-        $app->route('/v1/apod/{apodId}', Handler\ApodHandler::class, ['DELETE'], 'apod.deleteApod');
+        // Get all apods
+        $app->get(
+            '/v1/apods[/{page:\d+}[/{itemsPerPage:\d+}]]',
+            Handler\ApodHandler::class, 'GET',
+            'apod.getAllApod'
+        );
+
+        // Get specific apod
+        $app->get('/v1/apod/{apodId}', Handler\ApodHandler::class, 'apod.getApod');
+
+        // Add new apod
+        $app->post('/v1/apod', Handler\ApodHandler::class, 'apod.newApod');
+
+        // Update apod
+        $app->put('/v1/apod/{apodId}', Handler\ApodHandler::class, 'apod.updateApod');
+
+        // Logic delete apod
+        $app->delete('/v1/apod/{apodId}', Handler\ApodHandler::class, 'apod.deleteApod');
 
         return $app;
     }
