@@ -57,7 +57,8 @@ class ApodHandler implements RequestHandlerInterface
             $itemsPerPage = $itemsPerPage ? (int) $itemsPerPage : 10;
 
             $apods = $this->apodService->getAll($page, $itemsPerPage);
-            return (new JsonResponse($apods['items'], 'List of APOD\'s'))
+            $response = new JsonResponse($apods['items'], 'List of APOD\'s');
+            return $response
                 ->buildWithPagination(
                     $apods['current_page'],
                     $apods['items_per_page'],
