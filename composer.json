@@ -36,10 +36,18 @@
             ]
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/gouh/zend-cs-handlers.git"
+        }
+    ],
     "require": {
         "php": "^7.3 || ~8.0.0",
         "ext-mongodb": "*",
+        "ext-pdo": "*",
         "ext-redis": "*",
+        "catcoderphp/custom-onfig-provider": "dev-mezzio-health",
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/doctrine-mongo-odm-module": "^3.0",
         "filp/whoops": "^2.12",
@@ -47,6 +55,7 @@
         "gouh/psr-health": "^1.0",
         "laminas/laminas-component-installer": "^2.1.2",
         "laminas/laminas-config-aggregator": "^1.2",
+        "laminas/laminas-db": "^2.12",
         "laminas/laminas-diactoros": "^2.3.0",
         "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-stdlib": "^3.2.1",

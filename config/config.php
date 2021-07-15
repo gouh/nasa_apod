@@ -14,6 +14,8 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Laminas\Db\ConfigProvider::class,
+    \Laminas\Cache\ConfigProvider::class,
     \DoctrineModule\ConfigProvider::class,
     \Laminas\InputFilter\ConfigProvider::class,
     \Laminas\Filter\ConfigProvider::class,
@@ -38,6 +40,7 @@ $aggregator = new ConfigAggregator([
 
     \PsrHealth\ConfigProvider::class,
     App\ConfigProvider::class,
+    Catcoderphp\CustomConfigProvider\ConfigProvider::class,
     // Doctrine ODM configuration from ArrayProvider
     new ArrayProvider([
         'dependencies' => (new \DoctrineMongoODMModule\Module())->getServiceConfig()

@@ -2,7 +2,8 @@ ARG PHP_VERSION
 FROM ${PHP_VERSION}
 
 # Realiza instalaciones necesarias
-RUN apt-get update && apt-get install -y \
+RUN docker-php-ext-install pdo pdo_mysql \
+    && apt-get update && apt-get install -y \
     locales \
     git \
     curl \
